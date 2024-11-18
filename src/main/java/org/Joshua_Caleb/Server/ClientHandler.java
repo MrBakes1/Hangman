@@ -24,7 +24,6 @@ public class ClientHandler extends Thread{
         try{
             name = dis.readUTF();
             dos.writeUTF("Welcome " + name);
-            System.out.println(players);
 
             while (true){
                 String response = dis.readUTF();
