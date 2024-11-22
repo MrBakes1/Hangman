@@ -1,5 +1,8 @@
 package org.Joshua_Caleb.Client;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.*;
 import java.net.*;
 import java.util.Scanner;
@@ -25,7 +28,10 @@ public class Client {
                 System.out.println("Enter a guess: ");
                 Scanner s = new Scanner(System.in);
                 String guess = s.nextLine();
-                dos.writeUTF(guess);
+
+                Request_Response_Handler request = new Request_Response_Handler(name,guess);
+                JsonObject toSend = request.createReq();
+                dos.writeUTF(toSend.toString());
                 System.out.println(dis.readUTF());
             }
 

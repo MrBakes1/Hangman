@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 public class WordHelper {
     private String currentWord;
-    private ArrayList<Character> correctGuesses;
-    private ArrayList<Character> incorrectGuesses;
-
+    private ArrayList<Character> correctGuesses = new ArrayList<>();
+    private ArrayList<Character> incorrectGuesses = new ArrayList<>();
 
     public WordHelper(String word) {
         initWord(word);
@@ -19,7 +18,7 @@ public class WordHelper {
         }
     }
 
-    private boolean guessLetter(Character guess){
+    public boolean guessLetter(Character guess){
         if (currentWord.contains(guess.toString())){
             updateCorrect(guess);
             return true;

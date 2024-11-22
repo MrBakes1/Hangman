@@ -22,7 +22,8 @@ public class Server {
                 DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
                 DataInputStream dis = new DataInputStream(socket.getInputStream());
 
-                Thread thread = new ClientHandler(socket,dos,dis);
+                Game game = new Game();
+                Thread thread = new ClientHandler(socket,dos,dis,game);
                 thread.start();
             }
         }
