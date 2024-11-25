@@ -51,4 +51,14 @@ public class Request_Response_Handler {
         jsonObject.addProperty("Current Answer",updatedWord);
         return jsonObject;
     }
+
+    public JsonObject winResponse(Integer guesses_left, String name, Character guess, String updatedWord){
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("Guess",guess);
+        jsonObject.addProperty("From",name);
+        jsonObject.addProperty("Result","Win");
+        jsonObject.addProperty("Guesses Left",guesses_left);
+        jsonObject.addProperty("Current Answer",updatedWord);
+        return jsonObject;
+    }
 }

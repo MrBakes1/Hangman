@@ -20,4 +20,37 @@ public class Request_Response_Handler {
         request.addProperty("Guess",this.guess);
         return request;
     }
+
+    public void chooseDisplay(JsonObject res){
+        Integer guesses_left = res.get("Guesses Left").getAsInt();
+        String answer = res.get("Current Answer").getAsString();
+        drawHangman(guesses_left,answer);
+    }
+
+    public void drawHangman(int lives,String answer) {
+        System.out.println("Updated word: " + answer);
+        switch (lives) {
+            case 5:
+                System.out.println("_____\n|   |\n|   O\n|\n|\n|___");
+                break;
+            case 4:
+                System.out.println("_____\n|   |\n|   O\n|   |\n|\n|___");
+                break;
+            case 3:
+                System.out.println("_____\n|   |\n|   O\n|  /|\n|\n|___");
+                break;
+            case 2:
+                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|\n|___");
+                break;
+            case 1:
+                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|  /\n|___");
+                break;
+            case 0:
+                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|  / \\\n|___");
+                break;
+            default:
+                System.out.println("_____\n|   |\n|\n|\n|\n|___");
+                break;
+        }
+    }
 }

@@ -31,7 +31,12 @@ public class Game {
         String updatedWord = wordHelper.getUpdatedWord();
         if (wordHelper.guessLetter(guess)){
              updatedWord = wordHelper.getUpdatedWord();
-            result = requestResponseHandler.rightResponse(guesses,player,guess,updatedWord);
+            if (!updatedWord.contains("_")){
+                result = requestResponseHandler.winResponse(guesses,player,guess,updatedWord);
+            }else
+            {
+                result = requestResponseHandler.rightResponse(guesses, player, guess, updatedWord);
+            }
         }else {
             guesses = guesses - 1;
             result = requestResponseHandler.wrongResponse(guesses,player,guess,updatedWord);

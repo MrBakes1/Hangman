@@ -32,12 +32,20 @@ public class Client {
                 Request_Response_Handler request = new Request_Response_Handler(name,guess);
                 JsonObject toSend = request.createReq();
                 dos.writeUTF(toSend.toString());
-                System.out.println(dis.readUTF());
+//                System.out.println(dis.readUTF());
+                String response = dis.readUTF();
+                JsonObject result = JsonParser.parseString(response).getAsJsonObject();
+                if (result.get("Result").getAsString().equals("Win")){
+                    System.out.println("You win");
+                    break;
+                }
+                request.chooseDisplay(result);
             }
             dis.close();
             dos.close();
             clientSocket.close();
         } catch (EOFException a) {
+            System.out.println("_____\n|   |\n|   O\n|  /|\\\n|  / \\\n|___");
             System.out.println("You lose!! Welaa!!");
         } catch (IOException e){
             e.printStackTrace();

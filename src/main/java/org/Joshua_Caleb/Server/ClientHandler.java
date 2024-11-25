@@ -36,7 +36,10 @@ public class ClientHandler extends Thread{
                 JsonObject jsonObject = JsonParser.parseString(request).getAsJsonObject();
 
                 JsonObject result = game.checkGuess(jsonObject);
-
+                if (result.get("Result").getAsString().equals("Win")){
+                    dos.writeUTF(result.toString());
+                    break;
+                }
                 if (result.get("Guesses Left").getAsInt()==0){
                     hasLives = false;
                 }else{
