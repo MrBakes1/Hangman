@@ -30,18 +30,29 @@ public class ClientHandler extends Thread{
             name = dis.readUTF();
             dos.writeUTF("Welcome " + name);
             game.setPlayer(name);
-            while (true){
+            boolean hasLives = true;
+            while (hasLives){
                 String request = dis.readUTF();
                 JsonObject jsonObject = JsonParser.parseString(request).getAsJsonObject();
 
                 JsonObject result = game.checkGuess(jsonObject);
+
+                if (result.get("Guesses Left").getAsInt()==0){
+                    hasLives = false;
+                }else{
+                    dos.writeUTF(result.toString());
+                }
                 System.out.println(result);
-                Request_Response_Handler response = new Request_Response_Handler();
-                JsonObject tosend = response.basic_response(jsonObject);
-                dos.writeUTF(tosend.toString());
             }
         } catch (IOException e){
             e.printStackTrace();
+        }
+        try {
+            this.dis.close();
+            this.dos.close();
+            this.socket.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

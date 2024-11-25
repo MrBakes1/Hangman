@@ -31,21 +31,24 @@ public class Request_Response_Handler {
         return jsonObject;
     }
 
-    public JsonObject wrongResponse(Integer guesses_left,String name,Character guess){
+    public JsonObject wrongResponse(Integer guesses_left,String name,Character guess, String updatedWord){
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("Guess",guess);
         jsonObject.addProperty("From",name);
         jsonObject.addProperty("Result","Wrong");
         jsonObject.addProperty("Guesses Left",guesses_left);
+        jsonObject.addProperty("Current Answer",updatedWord);
+
         return jsonObject;
     }
 
-    public JsonObject wrightResponse(Integer guesses_left,String name,Character guess){
+    public JsonObject rightResponse(Integer guesses_left, String name, Character guess, String updatedWord){
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("Guess",guess);
         jsonObject.addProperty("From",name);
         jsonObject.addProperty("Result","Wright");
         jsonObject.addProperty("Guesses Left",guesses_left);
+        jsonObject.addProperty("Current Answer",updatedWord);
         return jsonObject;
     }
 }

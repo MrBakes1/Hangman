@@ -24,7 +24,7 @@ public class Client {
             dos.writeUTF(name);
             System.out.println(dis.readUTF());
 
-            while (true){
+            while (clientSocket.isConnected()){
                 System.out.println("Enter a guess: ");
                 Scanner s = new Scanner(System.in);
                 String guess = s.nextLine();
@@ -34,8 +34,12 @@ public class Client {
                 dos.writeUTF(toSend.toString());
                 System.out.println(dis.readUTF());
             }
-
-        }catch (IOException e){
+            dis.close();
+            dos.close();
+            clientSocket.close();
+        } catch (EOFException a) {
+            System.out.println("You lose!! Welaa!!");
+        } catch (IOException e){
             e.printStackTrace();
         }
     }

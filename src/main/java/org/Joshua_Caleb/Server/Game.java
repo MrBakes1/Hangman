@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 public class Game {
     String player;
     Integer guesses = 6;
-    WordHelper wordHelper;
+    final WordHelper wordHelper;
     Request_Response_Handler requestResponseHandler;
 
     public Game(){
@@ -26,14 +26,43 @@ public class Game {
     }
 
     public JsonObject checkGuess(JsonObject turn){
-        JsonObject result = new JsonObject();
+        JsonObject result;
         Character guess = turn.get("Guess").getAsCharacter();
+        String updatedWord = wordHelper.getUpdatedWord();
         if (wordHelper.guessLetter(guess)){
-            result = requestResponseHandler.wrightResponse(guesses,player,guess);
+             updatedWord = wordHelper.getUpdatedWord();
+            result = requestResponseHandler.rightResponse(guesses,player,guess,updatedWord);
         }else {
             guesses = guesses - 1;
-            result = requestResponseHandler.wrongResponse(guesses,player,guess);
+            result = requestResponseHandler.wrongResponse(guesses,player,guess,updatedWord);
         }
         return result;
     }
+
+    public void drawHangman(int lives) {
+        switch (lives) {
+            case 5:
+                System.out.println("_____\n|   |\n|   O\n|\n|\n|___");
+                break;
+            case 4:
+                System.out.println("_____\n|   |\n|   O\n|   |\n|\n|___");
+                break;
+            case 3:
+                System.out.println("_____\n|   |\n|   O\n|  /|\n|\n|___");
+                break;
+            case 2:
+                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|\n|___");
+                break;
+            case 1:
+                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|  /\n|___");
+                break;
+            case 0:
+                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|  / \\\n|___");
+                break;
+            default:
+                System.out.println("_____\n|   |\n|\n|\n|\n|___");
+                break;
+        }
+    }
+
 }

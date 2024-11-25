@@ -6,6 +6,7 @@ public class WordHelper {
     private String currentWord;
     private ArrayList<Character> correctGuesses = new ArrayList<>();
     private ArrayList<Character> incorrectGuesses = new ArrayList<>();
+    private String updatedWord;
 
     public WordHelper(String word) {
         initWord(word);
@@ -39,8 +40,16 @@ public class WordHelper {
         }
     }
 
-    private ArrayList<Character> getCorrectGuesses() {
-        return this.correctGuesses;
+    public String getUpdatedWord() {
+        this.updatedWord = "";
+        for (Character letter : correctGuesses){
+            this.updatedWord = this.updatedWord + letter;
+        }
+        return this.updatedWord;
+    }
+
+    public ArrayList<Character> getCorrectGuesses() {
+        return correctGuesses;
     }
 
     private ArrayList<Character> getIncorrectGuesses() {
