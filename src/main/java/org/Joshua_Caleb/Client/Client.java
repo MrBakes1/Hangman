@@ -10,8 +10,13 @@ import java.util.Scanner;
 
 public class Client {
     public static void main(String[] args) throws IOException{
+        String ip = args[0];
+        if (!isValidIpAddress(ip)){
+            System.out.println("Invalid IP address");
+            System.exit(0);
+        }
         try {
-            Socket clientSocket = new Socket("127.0.0.1", 5050);
+            Socket clientSocket = new Socket(ip, 5050);
 
             DataInputStream dis = new DataInputStream(clientSocket.getInputStream());
             DataOutputStream dos = new DataOutputStream(clientSocket.getOutputStream());
