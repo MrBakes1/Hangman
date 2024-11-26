@@ -2,14 +2,22 @@ package org.Joshua_Caleb.Server;
 
 import com.google.gson.JsonObject;
 
+import java.io.IOException;
+import java.io.File;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Game {
     String player;
     Integer guesses = 6;
     final WordHelper wordHelper;
     Request_Response_Handler requestResponseHandler;
 
-    public Game(){
-        this.wordHelper = new WordHelper("love");
+    public Game() throws IOException {
+        String word = loadWord();
+        System.out.println(word);
+        this.wordHelper = new WordHelper(word);
         this.requestResponseHandler = new Request_Response_Handler();
     }
 
@@ -44,30 +52,16 @@ public class Game {
         return result;
     }
 
-    public void drawHangman(int lives) {
-        switch (lives) {
-            case 5:
-                System.out.println("_____\n|   |\n|   O\n|\n|\n|___");
-                break;
-            case 4:
-                System.out.println("_____\n|   |\n|   O\n|   |\n|\n|___");
-                break;
-            case 3:
-                System.out.println("_____\n|   |\n|   O\n|  /|\n|\n|___");
-                break;
-            case 2:
-                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|\n|___");
-                break;
-            case 1:
-                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|  /\n|___");
-                break;
-            case 0:
-                System.out.println("_____\n|   |\n|   O\n|  /|\\\n|  / \\\n|___");
-                break;
-            default:
-                System.out.println("_____\n|   |\n|\n|\n|\n|___");
-                break;
+    public String loadWord() throws IOException {
+        File file = new File("words.txt");
+        Scanner scn = new Scanner(file);
+        ArrayList<String> words = new ArrayList<>();
+        while (scn.hasNext()){
+            String word_item = scn.nextLine();
+            words.add(word_item);
         }
+        Random r = new Random();
+        String word = words.get(r.nextInt(words.size() -1));
+        return word;
     }
-
 }
